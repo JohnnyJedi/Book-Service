@@ -1,0 +1,82 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-create-publishers
+      author: evgeny
+      changes:
+        - createTable:
+            tableName: publishers
+            columns:
+              - column:
+                 name: publisher_name
+                 type: varchar(255)
+                 constraints:
+                   primaryKey: true
+                   nullable: false
+  - changeSet:
+      id: 02-create-authors
+      author: evgeny
+      changes:
+        - createTable:
+            tableName: authors
+            columns:
+              - column:
+                  name: author_name
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: birth_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 03-create-books
+      author:  evgeny
+      changes:
+        - createTable:
+            tableName: books
+            columns:
+              - column:
+                  name: isbn
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: publisher_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_book_publisher
+                    references: publishers(publisher_name)
+  - changeSet:
+      id: 04-create-books-authors
+      author: evgeny
+      changes:
+        - createTable:
+            tableName: books_authors
+            columns:
+              - column:
+                  name: isbn
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_books_authors_books
+                    references: books(isbn)
+              - column:
+                  name: author_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_books_authors_authors
+                    references: authors(author_name)
+        - addPrimaryKey:
+            tableName: books_authors
+            columnNames: isbn, author_name
+            constraintName: pk_books_authors

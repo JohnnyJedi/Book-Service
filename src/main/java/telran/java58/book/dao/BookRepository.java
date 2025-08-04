@@ -11,4 +11,6 @@ public interface BookRepository extends JpaRepository<Book, String> {
     Set<Book> findAllByAuthorsAuthorName(String authorName);
 
     List<Book> findAllByPublisher_PublisherName(String publisherPublisherName);
+
+    void deleteByAuthorsAuthorNameIgnoreCase(String authorName);
 }

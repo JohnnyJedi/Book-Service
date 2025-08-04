@@ -1,10 +1,9 @@
 package telran.java58.book.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,4 +16,15 @@ public class Publisher {
     @Id
     @Column(name = "publisher_name")
     String publisherName;
+    @OneToMany(mappedBy = "publisher")
+    private Set<Book> books;
+
+    public Publisher(String publisherName) {
+        this.publisherName = publisherName;
+    }
+
+    @Override
+    public String toString() {
+        return publisherName;
+    }
 }

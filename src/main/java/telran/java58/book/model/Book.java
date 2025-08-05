@@ -10,19 +10,13 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @EqualsAndHashCode(of = "isbn")
-@Table(name = "books")
+@Builder
 public class Book {
     @Id
-    @Column(name = "isbn")
     private String isbn;
-    @Column(name = "title")
     private String title;
-    @ManyToMany
-    @JoinTable(name = "books_authors",
-            joinColumns = @JoinColumn(name = "isbn"),
-            inverseJoinColumns = @JoinColumn(name = "author_name"))
+    @Singular
+    @ManyToMany  //(fetch = FetchType.EAGER)
     private Set<Author> authors;
-    @ManyToOne
-    @JoinColumn(name = "publisher_name")
-    private Publisher publisher;
+
 }

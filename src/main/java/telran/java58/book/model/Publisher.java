@@ -17,4 +17,11 @@ public class Publisher {
     @Id
     @Column(name = "publisher_name")
     String publisherName;
+
+
+
+    @Override
+    public String toString() {
+        return publisherName;
+    }
 }

@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 05-drop-old-fk-author
+      author: evgeny
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: books_authors
+            constraintName: fk_books_authors_authors
+
+  -  changeSet:
+       id: 06-add-new-fk-author-cascade
+       author: evgeny
+       changes:
+         - addForeignKeyConstraint:
+             baseTableName: books_authors
+             baseColumnNames: author_name
+             constraintName: fk_books_authors_authors_cascade
+             referencedTableName: authors
+             referencedColumnNames: author_name
+             onDelete: CASCADE
+             onUpdate: CASCADE
